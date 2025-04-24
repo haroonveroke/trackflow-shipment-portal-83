@@ -3,11 +3,12 @@ import React from 'react';
 import { SidebarProvider, Sidebar, SidebarContent, SidebarGroup, SidebarMenu, 
   SidebarMenuItem, SidebarMenuButton, SidebarHeader, SidebarFooter, SidebarTrigger } 
   from "@/components/ui/sidebar";
-import { Home, Package, Plus, TruckIcon, ClipboardList, Bell } from "lucide-react";
+import { Home, Package, Plus, TruckIcon, ClipboardList, Bell, LogOut } from "lucide-react";
 import { useLocation, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Avatar } from "@/components/ui/avatar";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -16,6 +17,7 @@ interface LayoutProps {
 const Layout = ({ children }: LayoutProps) => {
   const location = useLocation();
   const isMobile = useIsMobile();
+  const { user, logout } = useAuth();
 
   // Menu items with routes
   const menuItems = [
@@ -57,14 +59,21 @@ const Layout = ({ children }: LayoutProps) => {
               <div className="flex items-center gap-2">
                 <Avatar className="h-8 w-8">
                   <div className="bg-primary text-primary-foreground rounded-full h-full w-full flex items-center justify-center">
-                    JD
+                    {user?.email.substring(0, 2).toUpperCase() || 'JD'}
                   </div>
                 </Avatar>
                 <div>
-                  <p className="text-sm font-medium text-sidebar-foreground">John Doe</p>
-                  <p className="text-xs text-sidebar-foreground/80">Manager</p>
+                  <p className="text-sm font-medium text-sidebar-foreground">
+                    {user?.email.split('@')[0] || 'John Doe'}
+                  </p>
+                  <p className="text-xs text-sidebar-foreground/80">
+                    {user?.role.charAt(0).toUpperCase() + user?.role.slice(1) || 'Manager'}
+                  </p>
                 </div>
               </div>
+              <Button variant="ghost" size="icon" onClick={logout} title="Logout">
+                <LogOut size={18} />
+              </Button>
             </div>
           </SidebarFooter>
         </Sidebar>
@@ -101,7 +110,7 @@ const Layout = ({ children }: LayoutProps) => {
               </Button>
               <Avatar className="h-8 w-8 md:hidden">
                 <div className="bg-primary text-primary-foreground rounded-full h-full w-full flex items-center justify-center">
-                  JD
+                  {user?.email.substring(0, 2).toUpperCase() || 'JD'}
                 </div>
               </Avatar>
             </div>
