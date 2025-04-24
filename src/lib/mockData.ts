@@ -1,4 +1,3 @@
-
 import { Shipment, ShipmentSummary } from "./types";
 
 // Helper function to get random date in the past
@@ -132,16 +131,19 @@ export const generateMockShipments = (count: number = 20): Shipment[] => {
   });
 };
 
-export const mockShipments = generateMockShipments();
+// Mock data for shipments
+export const mockShipments: Shipment[] = generateMockShipments();
 
+// Function to calculate shipment summary
 export const getShipmentSummary = (): ShipmentSummary => {
-  const delivered = mockShipments.filter(s => s.status === 'delivered').length;
-  const inTransit = mockShipments.filter(s => s.status === 'in-transit').length;
-  const delayed = mockShipments.filter(s => s.status === 'delayed').length;
-  const pending = mockShipments.filter(s => s.status === 'pending').length;
-  
+  const totalShipments = mockShipments.length;
+  const delivered = mockShipments.filter(s => s.status === "delivered").length;
+  const inTransit = mockShipments.filter(s => s.status === "in-transit").length;
+  const delayed = mockShipments.filter(s => s.status === "delayed").length;
+  const pending = mockShipments.filter(s => s.status === "pending").length;
+
   return {
-    totalShipments: mockShipments.length,
+    totalShipments,
     delivered,
     inTransit,
     delayed,

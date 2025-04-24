@@ -41,15 +41,12 @@ const Layout = ({ children }: LayoutProps) => {
               <SidebarMenu>
                 {menuItems.map((item) => (
                   <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
-                      <Link 
-                        to={item.path} 
-                        className={location.pathname === item.path ? "bg-sidebar-accent" : ""}
-                      >
+                    <Link to={item.path} className={location.pathname === item.path ? "bg-sidebar-accent" : ""}>
+                      <SidebarMenuButton>
                         <item.icon size={20} />
                         <span>{item.title}</span>
-                      </Link>
-                    </SidebarMenuButton>
+                      </SidebarMenuButton>
+                    </Link>
                   </SidebarMenuItem>
                 ))}
               </SidebarMenu>
@@ -74,7 +71,7 @@ const Layout = ({ children }: LayoutProps) => {
         <main className="flex-1">
           <header className="w-full bg-white p-4 border-b flex justify-between items-center">
             <div className="flex items-center">
-              <SidebarTrigger asChild>
+              <SidebarTrigger>
                 <Button variant="ghost" size="icon" className="mr-4 md:hidden">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
