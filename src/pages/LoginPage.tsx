@@ -27,7 +27,7 @@ const LoginPage = () => {
       if (success) {
         toast({
           title: "Login successful",
-          description: "Welcome to TrackFlow",
+          description: "Welcome to Logistics Management System",
         });
         navigate('/');
       } else {
@@ -58,7 +58,7 @@ const LoginPage = () => {
                 <TruckIcon size={40} className="text-primary" />
               </div>
             </div>
-            <CardTitle className="text-2xl">TrackFlow</CardTitle>
+            <CardTitle className="text-2xl">Logistics Management</CardTitle>
             <p className="text-muted-foreground mt-2">Sign in to your account</p>
           </CardHeader>
           <CardContent>
@@ -92,11 +92,6 @@ const LoginPage = () => {
               </Button>
             </form>
           </CardContent>
-          <CardFooter className="justify-center text-center">
-            <p className="text-sm text-muted-foreground">
-              Demo credentials: haroon.abid@veroke.com / 123123
-            </p>
-          </CardFooter>
         </Card>
       </div>
     </div>

@@ -35,7 +35,7 @@ const Layout = ({ children }: LayoutProps) => {
           <SidebarHeader>
             <div className="flex items-center gap-2 px-4">
               <TruckIcon size={24} className="text-sidebar-foreground" />
-              <h2 className="text-xl font-bold text-sidebar-foreground">TrackFlow</h2>
+              <h2 className="text-xl font-bold text-sidebar-foreground">Logistics Management</h2>
             </div>
           </SidebarHeader>
           <SidebarContent>
@@ -101,7 +101,7 @@ const Layout = ({ children }: LayoutProps) => {
                   <span className="sr-only">Toggle Menu</span>
                 </Button>
               </SidebarTrigger>
-              <div className="text-xl font-semibold md:hidden">TrackFlow</div>
+              <div className="text-xl font-semibold md:hidden">Logistics Management</div>
             </div>
             <div className="flex items-center gap-4">
               <Button variant="ghost" size="icon" className="relative">
