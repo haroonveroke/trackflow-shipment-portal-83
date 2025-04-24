@@ -37,16 +37,26 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     
     // Hard-coded credentials for demonstration
     // In a real app, this would be an API call to your authentication server
-    if (email === 'saad.iqbal@veroke.com' && password === '123123') {
-      const userData = {
-        email: email,
-        role: 'staff' as const
-      };
-      
-      setUser(userData);
-      localStorage.setItem('user', JSON.stringify(userData));
-      setIsLoading(false);
-      return true;
+    if (password === '123123') {
+      if (email === 'haroon.abid@veroke.com') {
+        const userData = {
+          email: email,
+          role: 'manager' as const
+        };
+        setUser(userData);
+        localStorage.setItem('user', JSON.stringify(userData));
+        setIsLoading(false);
+        return true;
+      } else if (email === 'saad.iqbal@veroke.com') {
+        const userData = {
+          email: email,
+          role: 'staff' as const
+        };
+        setUser(userData);
+        localStorage.setItem('user', JSON.stringify(userData));
+        setIsLoading(false);
+        return true;
+      }
     }
     
     setIsLoading(false);
