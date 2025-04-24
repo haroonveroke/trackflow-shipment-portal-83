@@ -1,6 +1,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { loginUser } from '@/services/auth';
 
 interface User {
   email: string;
@@ -23,7 +24,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
-  // Check if user is already logged in (from localStorage)
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
@@ -34,38 +34,30 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const login = async (email: string, password: string) => {
     setIsLoading(true);
-    
-    // Hard-coded credentials for demonstration
-    // In a real app, this would be an API call to your authentication server
-    if (password === '123123') {
-      if (email === 'haroon.abid@veroke.com') {
-        const userData = {
-          email: email,
-          role: 'manager' as const
-        };
-        setUser(userData);
-        localStorage.setItem('user', JSON.stringify(userData));
-        setIsLoading(false);
-        return true;
-      } else if (email === 'saad.iqbal@veroke.com') {
-        const userData = {
-          email: email,
-          role: 'staff' as const
-        };
-        setUser(userData);
-        localStorage.setItem('user', JSON.stringify(userData));
-        setIsLoading(false);
-        return true;
+    try {
+      const response = await loginUser(email, password);
+      const userData = {
+        email: response.user.email,
+        role: response.user.role
+      };
+      setUser(userData);
+      localStorage.setItem('user', JSON.stringify(userData));
+      if (response.token) {
+        localStorage.setItem('token', response.token);
       }
+      return true;
+    } catch (error) {
+      console.error('Login error:', error);
+      return false;
+    } finally {
+      setIsLoading(false);
     }
-    
-    setIsLoading(false);
-    return false;
   };
 
   const logout = () => {
     setUser(null);
     localStorage.removeItem('user');
+    localStorage.removeItem('token');
     navigate('/login');
   };
 
